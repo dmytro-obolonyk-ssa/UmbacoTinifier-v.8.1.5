@@ -76,7 +76,8 @@ namespace Tinifier.Core.Application
             MediaService.Deleted += MediaService_Deleted;
 
 
-            PackagingService.UninstalledPackage += PackagingService_UninstalledPackage;
+            //PackagingService.UninstalledPackage += PackagingService_UninstalledPackage;
+            //PackagingService.ImportedPackage += PackagingService_ImpordedPackage;
 
 
 
@@ -89,27 +90,27 @@ namespace Tinifier.Core.Application
             //MediaService.EmptiedRecycleBin += MediaService_EmptiedRecycleBin;
         }
 
+        private void PackagingService_ImpordedPackage(IPackagingService sender, ImportPackageEventArgs<InstallationSummary> e)
+        {
+            var s = sender;
+        }
+
         private void PackagingService_UninstalledPackage(IPackagingService sender, UninstallPackageEventArgs e)
         {
-            PackageDefinition pack = sender.GetAllInstalledPackages().ToArray().First();
-            var packEv = e;
-
-            string resText = "[" + pack.Name + "]";
-
-            using (StreamWriter w = new StreamWriter(System.Web.HttpContext.Current.Server.MapPath("~/log.txt"), true))
+            var pack = e.UninstallationSummary.FirstOrDefault();
+            if (pack == null)
+                return;
+            if (pack.MetaData.Name == PackageConstants.SectionName)
             {
-                w.WriteLine(resText); 
+                try
+                {
+                    var directory = new DirectoryInfo(System.Web.HttpContext.Current.Server.MapPath("~/App_Plugins/" + PackageConstants.SectionName));
+                    if (directory != null && directory.Exists)
+                        directory.Delete(true);
+                }
+                catch (Exception ex)
+                { }
             }
-
-
-            // if (string.Equals(sender..Data.Name, PackageConstants.SectionAlias, StringComparison.OrdinalIgnoreCase))
-            // {
-            //     DashboardExtension.ClearTabs();
-            //     var section = ApplicationContext.Current.Services.SectionService.GetByAlias(PackageConstants.SectionAlias);
-            //
-            //     if (section != null)
-            //         ApplicationContext.Current.Services.SectionService.DeleteSection(section);
-            // }
         }
 
         private void MediaService_DeletedVersions(IMediaService sender, DeleteRevisionsEventArgs e)

@@ -98,4 +98,33 @@
       <file name="/App_Plugins/Tinifier/css/TinifierStyle.css" />
     </files>
   </item>
+  <item key="L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvc3RhcnRlcmtpdGhlbHAuY29udHJvbGxlci5qczsvQXBwX1BsdWdpbnMvU3RhcnRlcmtpdC90b3Vycy92aWV3cy9tZWRpYWxpYnJhcnkvdXBsb2FkaW1hZ2VzLmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvdG91cnMvdmlld3MvdmFsaWRhdGV0ZXh0LmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1RpbmlmaWVyL0NvbnRyb2xsZXJzL0V4dGVuc2lvbi5jb250cm9sbGVyLmpzOw" file="C:\UT\UmbacoTinifier-restored\UmbracoDemo\App_Data\TEMP\ClientDependency\1_c6d395b353da4611ab3eaa2e667b31eb.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/App_Plugins/Starterkit/starterkithelp.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/medialibrary/uploadimages.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/validatetext.controller.js" />
+    </files>
+  </item>
+  <item key="L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvc3RhcnRlcmtpdGhlbHAuY29udHJvbGxlci5qczsvQXBwX1BsdWdpbnMvU3RhcnRlcmtpdC90b3Vycy92aWV3cy9tZWRpYWxpYnJhcnkvdXBsb2FkaW1hZ2VzLmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvdG91cnMvdmlld3MvdmFsaWRhdGV0ZXh0LmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1RpbmlmaWVyL0NvbnRyb2xsZXJzL1Rlc3QuRXh0ZW5zaW9uLmNvbnRyb2xsZXIuanM7" file="C:\UT\UmbacoTinifier-restored\UmbracoDemo\App_Data\TEMP\ClientDependency\1_238e2e21e5ed41d1b3fe39b16a41dfc0.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/App_Plugins/Starterkit/starterkithelp.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/medialibrary/uploadimages.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/validatetext.controller.js" />
+    </files>
+  </item>
+  <item key="L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvc3RhcnRlcmtpdGhlbHAuY29udHJvbGxlci5qczsvQXBwX1BsdWdpbnMvU3RhcnRlcmtpdC90b3Vycy92aWV3cy9tZWRpYWxpYnJhcnkvdXBsb2FkaW1hZ2VzLmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvdG91cnMvdmlld3MvdmFsaWRhdGV0ZXh0LmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1Rlc3RFeHRlbnNpb24vQ29udHJvbGxlcnMvVGVzdC5FeHRlbnNpb24uY29udHJvbGxlci5qczs" file="C:\UT\UmbacoTinifier-restored\UmbracoDemo\App_Data\TEMP\ClientDependency\1_9ae961d0cfdd460b839aafa33d430189.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/App_Plugins/Starterkit/starterkithelp.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/medialibrary/uploadimages.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/validatetext.controller.js" />
+    </files>
+  </item>
+  <item key="L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvc3RhcnRlcmtpdGhlbHAuY29udHJvbGxlci5qczsvQXBwX1BsdWdpbnMvU3RhcnRlcmtpdC90b3Vycy92aWV3cy9tZWRpYWxpYnJhcnkvdXBsb2FkaW1hZ2VzLmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1N0YXJ0ZXJraXQvdG91cnMvdmlld3MvdmFsaWRhdGV0ZXh0LmNvbnRyb2xsZXIuanM7L0FwcF9QbHVnaW5zL1Rlc3RFeHRlbnNpb24vQ29udHJvbGxlcnMvRXh0ZW5zaW9uLmNvbnRyb2xsZXIuanM7" file="C:\UT\UmbacoTinifier-restored\UmbracoDemo\App_Data\TEMP\ClientDependency\1_05a8b01fb24d4582aa7ea5b54a30eecf.cdJ" compression="gzip" version="1">
+    <files>
+      <file name="/App_Plugins/Starterkit/starterkithelp.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/medialibrary/uploadimages.controller.js" />
+      <file name="/App_Plugins/Starterkit/tours/views/validatetext.controller.js" />
+      <file name="/App_Plugins/TestExtension/Controllers/Extension.controller.js" />
+    </files>
+  </item>
 </map>
