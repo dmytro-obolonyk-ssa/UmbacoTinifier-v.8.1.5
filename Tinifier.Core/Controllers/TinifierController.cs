@@ -170,6 +170,8 @@ namespace Tinifier.Core.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> UndoTinify([FromUri]int mediaId)
         {
+            TImage media = _imageService.GetImage(mediaId);
+            
             try
             {
                 _imageService.UndoTinify(mediaId);
@@ -386,7 +388,7 @@ namespace Tinifier.Core.Controllers
             foreach (var content in GetAllPublishedContent())
             {
                 var imageCroppers = content.Properties
-                    .Where(x => !string.IsNullOrEmpty(x.Alias.ToString()) && x.Alias.ToString().Contains("crops"));
+                    .Where(x => !string.IsNullOrEmpty(x.PropertyType.EditorAlias.ToString()) && x.PropertyType.EditorAlias.ToString().Contains("Cropper")).ToArray();
 
 
                 foreach (var crop in imageCroppers)

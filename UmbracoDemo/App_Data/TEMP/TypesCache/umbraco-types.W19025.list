@@ -274,7 +274,6 @@ Umbraco.Web.Cache.MemberGroupCacheRefresher, Umbraco.Web, Version=8.0.0.0, Cultu
 Umbraco.Web.Cache.PublicAccessCacheRefresher, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.Cache.TemplateCacheRefresher, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.Cache.UserCacheRefresher, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
-Tinifier.Core.Application.tinifierStartup, TestExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco8.Components.TestController, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco8.Components.MapHttpRoutesComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.dev.DependencyComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -286,6 +285,7 @@ Tinifier.Core.Controllers.TinifierTreeController, Tinifier.Core, Version=1.0.0.0
 Tinifier.Core.Application.DbComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.Application.tinifierStartup, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.Application.DbComposer+DbStartup+MigrationCreateTables, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Tinifier.Core.Application.tinifierStartup, TestExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.SampleSite.InstallPackageAction, Umbraco.SampleSite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.SampleSite.StarterKitComposer, Umbraco.SampleSite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.SampleSite.Controllers.LessonsController, Umbraco.SampleSite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null
@@ -320,11 +320,11 @@ Umbraco.Web.Compose.NotificationsComposer, Umbraco.Web, Version=8.0.0.0, Culture
 Umbraco.Web.Compose.PublicAccessComposer, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.Compose.DatabaseServerRegistrarAndMessengerComposer, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.Web.Cache.DistributedCacheBinderComposer, Umbraco.Web, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
-Tinifier.Core.Application.tinifierStartup, TestExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco8.Components.MapHttpRoutesComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.dev.DependencyComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.Application.DbComposer, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Tinifier.Core.Application.tinifierStartup, Tinifier.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+Tinifier.Core.Application.tinifierStartup, TestExtension, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.SampleSite.StarterKitComposer, Umbraco.SampleSite, Version=4.0.0.0, Culture=neutral, PublicKeyToken=null
 Umbraco.ModelsBuilder.Umbraco.ModelsBuilderComposer, Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, PublicKeyToken=null
 

@@ -8,7 +8,7 @@ using  Umbraco.Web;
 using  Umbraco.ModelsBuilder;
 using  Umbraco.ModelsBuilder.Umbraco;
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "db35b81023d77f6a")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "46537f184970baad")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 
@@ -627,6 +627,13 @@ namespace Umbraco.Web.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("sitename")]
 		public string Sitename => this.Value<string>("sitename");
+
+		///<summary>
+		/// CropTest
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
+		[ImplementPropertyType("tesst")]
+		public Umbraco.Core.PropertyEditors.ValueConverters.ImageCropperValue Tesst => this.Value<Umbraco.Core.PropertyEditors.ValueConverters.ImageCropperValue>("tesst");
 	}
 
 	/// <summary>Feature</summary>

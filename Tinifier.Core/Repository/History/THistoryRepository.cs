@@ -1,4 +1,5 @@
 ﻿using NPoco;
+using System;
 using System.Collections.Generic;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Models.Db;
@@ -65,9 +66,16 @@ namespace Tinifier.Core.Repository.History
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-                var database = scope.Database;
-                database.Insert(newItem);
-                scope.Complete();
+                try
+                {
+                    var database = scope.Database;
+                    database.Insert(newItem);
+                    scope.Complete();
+                }
+                catch (Exception ex)
+                {
+
+                }
             }
         }
 
@@ -79,10 +87,22 @@ namespace Tinifier.Core.Repository.History
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-                var database = scope.Database;
-                var query = new Sql("DELETE FROM TinifierResponseHistory WHERE ImageId = @0", imageId);
-                database.Execute(query);
-                scope.Complete();
+                try
+                {
+                    var database = scope.Database;
+
+                    var testQuery = new Sql("SELECT * FROM TinifierResponseHistory");
+                    var res = database.Fetch<object>(testQuery);
+
+
+                    var query = new Sql("DELETE FROM TinifierResponseHistory WHERE ImageId = @0", imageId);
+                    database.Execute(query);
+                    scope.Complete();
+                }
+                catch(Exception ex)
+                {
+
+                }
             }
         }
     }

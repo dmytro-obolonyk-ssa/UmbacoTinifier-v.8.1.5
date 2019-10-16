@@ -423,6 +423,7 @@
     <Content Include="App_Plugins\Tinifier\media\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
     <Content Include="App_Plugins\Tinifier\media\spinner.gif" />
     <Content Include="App_Plugins\Tinifier\media\support.jpg" />
+    <Content Include="App_Plugins\Tinifier\pointer.svg" />
     <Content Include="App_Plugins\Tinifier\Resources\TinifierApiUrls.resource.js" />
     <Content Include="config\grid.editors.config.js" />
     <Content Include="config\Lang\cs-CZ.user.xml" />

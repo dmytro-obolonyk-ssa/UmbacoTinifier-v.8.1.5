@@ -42,6 +42,12 @@ namespace Tinifier.Core.Repository.State
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
+                //using (var database = scope.Database)
+                //{
+                //    database.Insert(entity);
+                //    scope.Complete();
+                //}
+
                 var database = scope.Database;
                 database.Insert(entity);
                 scope.Complete();
@@ -158,13 +164,13 @@ namespace Tinifier.Core.Repository.State
                 var database = scope.Database;
                 for (var i = 0; i < tables.Count; i++)
                 {
-                   // var queryTableExists = new Sql($"SELECT Count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tables.ElementAt(i).Key}'");
-                   // var count = database.FirstOrDefault<TState>(queryTableExists);
-                   // if (count.Equals(1))
-                   // {
-                        var queryDropQuery = new Sql($"DELETE FROM {tables.ElementAt(i).Key}");
-                        database.Execute(queryDropQuery);
-                        scope.Complete();
+                    // var queryTableExists = new Sql($"SELECT Count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tables.ElementAt(i).Key}'");
+                    // var count = database.FirstOrDefault<TState>(queryTableExists);
+                    // if (count.Equals(1))
+                    // {
+                    var queryDropQuery = new Sql($"DELETE FROM {tables.ElementAt(i).Key}");
+                    database.Execute(queryDropQuery);
+                    scope.Complete();
                     //}
                 }
             }

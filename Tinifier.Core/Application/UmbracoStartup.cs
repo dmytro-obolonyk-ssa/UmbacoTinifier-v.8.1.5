@@ -71,6 +71,8 @@ namespace Tinifier.Core.Application
             SetFileSystemProvider();
             ServerVariablesParser.Parsing += Parsing;
             TreeControllerBase.MenuRendering += MenuRenderingHandler;
+            TreeControllerBase.TreeNodesRendering += CustomTreeNodesRendering;
+            ContentService.Saving += ContentService_Saving;
 
             MediaService.Saved += MediaService_Saved;
             MediaService.Deleted += MediaService_Deleted;
@@ -88,6 +90,25 @@ namespace Tinifier.Core.Application
             //MediaService.Saving += MediaService_Saving;
             //MediaService.DeletedVersions += MediaService_DeletedVersions;
             //MediaService.EmptiedRecycleBin += MediaService_EmptiedRecycleBin;
+        }
+
+        private void CustomTreeNodesRendering(TreeControllerBase sender, TreeNodesRenderingEventArgs e)
+        {
+
+            if (string.Equals(sender.TreeAlias, PackageConstants.MediaAlias, StringComparison.OrdinalIgnoreCase))
+            {
+                foreach (var node in e.Nodes)
+                {
+                    //node.Icon = "icon-compress";
+
+                    //var fileInfo = new FileInfo(System.Web.HttpContext.Current.Server.MapPath("~/App_Plugins/Tinifier/pointer.svg"));
+                    //if (fileInfo.Exists)
+                    //    node.Icon = "~" + System.Web.HttpContext.Current.Server.MapPath("~/App_Plugins/Tinifier/pointer.png");
+                    var history = _historyService.GetImageHistory(node.Id as string);
+                    if (history != null)
+                        node.Icon = "icon-umb-media color-orange";   
+                }
+            }
         }
 
         private void PackagingService_ImpordedPackage(IPackagingService sender, ImportPackageEventArgs<InstallationSummary> e)
@@ -262,8 +283,9 @@ namespace Tinifier.Core.Application
         {
             if (string.Equals(sender.TreeAlias, PackageConstants.MediaAlias, StringComparison.OrdinalIgnoreCase))
             {
-                var menuItemTinifyButton = new MenuItem(PackageConstants.TinifierButton, PackageConstants.TinifierButtonCaption);
+                MenuItem menuItemTinifyButton = new MenuItem(PackageConstants.TinifierButton, PackageConstants.TinifierButtonCaption);
                 menuItemTinifyButton.LaunchDialogView(PackageConstants.TinyTImageRoute, PackageConstants.SectionName);
+                menuItemTinifyButton.SeparatorBefore = true;
                 menuItemTinifyButton.Icon = PackageConstants.MenuIcon;
                 e.Menu.Items.Add(menuItemTinifyButton);
 
