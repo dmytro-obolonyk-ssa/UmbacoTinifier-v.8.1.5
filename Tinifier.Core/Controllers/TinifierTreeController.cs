@@ -49,16 +49,13 @@ namespace Tinifier.Core.Controllers
                         queryStrings.GetValue<string>(PackageConstants.AppAlias) + PackageConstants.CustomTreeUrl +
                         SolutionExtensions.Base64Encode(timage.Id));
 
-
                     treeNode.MenuUrl = null;
-
-
 
                     if (trashedNodes.Count(idNode => timage.Id.Equals(idNode.ToString())) == 0)
                         //treeNode.Name += " (deleted)";
                         treeNode.Icon = "icon-umb-media color-orange";
 
-                    var clases = treeNode.CssClasses;
+                    
 
                     nodes.Add(treeNode);
                 }

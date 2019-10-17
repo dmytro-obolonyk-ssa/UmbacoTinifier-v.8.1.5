@@ -109,7 +109,7 @@ namespace Tinifier.Core.Services.ImageCropperInfo
             bool enableCropsOptimization, string path)
         {
             var pathForFolder = path.Remove(path.LastIndexOf('/') + 1);
-            DeleteAzureHistory(imageCropperInfo);
+            //DeleteAzureHistory(imageCropperInfo);
 
             var histories = _historyService.GetHistoryByPath(pathForFolder);
             foreach (var history in histories)

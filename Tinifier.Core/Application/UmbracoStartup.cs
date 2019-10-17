@@ -15,6 +15,7 @@ using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Exceptions;
 using Tinifier.Core.Models.Db;
 using Tinifier.Core.Repository.FileSystemProvider;
+using Tinifier.Core.Repository.History;
 using Tinifier.Core.Services;
 using Tinifier.Core.Services.History;
 using Tinifier.Core.Services.ImageCropperInfo;
@@ -55,8 +56,12 @@ namespace Tinifier.Core.Application
         private readonly IHistoryService _historyService;
         private readonly IImageCropperInfoService _imageCropperInfoService;
 
+        //for testing
+        private readonly IHistoryRepository _historyRepository;
+
         public SectionService(IFileSystemProviderRepository fileSystemProviderRepository, ISettingsService settingsService,
-            IStatisticService statisticService, IImageService imageService, IHistoryService historyService, IImageCropperInfoService imageCropperInfoService)
+            IStatisticService statisticService, IImageService imageService, IHistoryService historyService, IImageCropperInfoService imageCropperInfoService,
+            IHistoryRepository historyRepository)
         {
             _fileSystemProviderRepository = fileSystemProviderRepository;
             _settingsService = settingsService;
@@ -64,6 +69,7 @@ namespace Tinifier.Core.Application
             _imageService = imageService;
             _historyService = historyService;
             _imageCropperInfoService = imageCropperInfoService;
+            _historyRepository = historyRepository;
         }
 
         public void Initialize()
@@ -72,7 +78,7 @@ namespace Tinifier.Core.Application
             ServerVariablesParser.Parsing += Parsing;
             TreeControllerBase.MenuRendering += MenuRenderingHandler;
             TreeControllerBase.TreeNodesRendering += CustomTreeNodesRendering;
-            ContentService.Saving += ContentService_Saving;
+            //ContentService.Saving += ContentService_Saving;
 
             MediaService.Saved += MediaService_Saved;
             MediaService.Deleted += MediaService_Deleted;
@@ -160,6 +166,9 @@ namespace Tinifier.Core.Application
 
         private void ContentService_Saving(IContentService sender, SaveEventArgs<IContent> e)
         {
+            //for testing
+            _historyRepository.Create(new TinyPNGResponseHistory() { Error = "TestError", ImageId = "TestImageId", OccuredAt = DateTime.Now, Id = 1111 });
+
             var settingService = _settingsService.GetSettings();
             if (settingService == null)
                 return;

@@ -45,7 +45,7 @@ namespace Tinifier.Core.Repository.History
                 var database = scope.Database;
                 var query = new Sql("SELECT * FROM TinifierResponseHistory WHERE ImageId = @0", id);
                 return database.FirstOrDefault<TinyPNGResponseHistory>(query);
-            }   
+            }
         }
 
         public IEnumerable<TinyPNGResponseHistory> GetHistoryByPath(string path)
@@ -66,16 +66,11 @@ namespace Tinifier.Core.Repository.History
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-                try
-                {
-                    var database = scope.Database;
-                    database.Insert(newItem);
-                    scope.Complete();
-                }
-                catch (Exception ex)
-                {
 
-                }
+                var database = scope.Database;
+                database.Insert(newItem);
+                scope.Complete();
+
             }
         }
 
@@ -87,22 +82,11 @@ namespace Tinifier.Core.Repository.History
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-                try
-                {
-                    var database = scope.Database;
+                var database = scope.Database;
 
-                    var testQuery = new Sql("SELECT * FROM TinifierResponseHistory");
-                    var res = database.Fetch<object>(testQuery);
-
-
-                    var query = new Sql("DELETE FROM TinifierResponseHistory WHERE ImageId = @0", imageId);
-                    database.Execute(query);
-                    scope.Complete();
-                }
-                catch(Exception ex)
-                {
-
-                }
+                var query = new Sql("DELETE FROM TinifierResponseHistory WHERE ImageId = @0", imageId);
+                database.ExecuteAsync(query);
+                scope.Complete();
             }
         }
     }
