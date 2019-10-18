@@ -423,25 +423,5 @@ namespace Tinifier.Core.Controllers
                 }
             }
         }
-
-        public MenuItemCollection GetMenuForNode(string timageId)
-        {
-            // var menu = new MenuItemCollection();
-            //
-            // var menuItem = new Umbraco.Web.Models.Trees.MenuItem();
-            // menuItem.Alias = "Menu Item 1";
-            // menuItem.Icon = "heard";
-            //
-            //     // root actions, perhaps users can create new items in this tree, or perhaps it's not a content tree, it might be a read only tree, or each node item might represent something entirely different...
-            //     // add your menu item actions or custom ActionMenuItems
-            // menu.Items.Add(new CreateChildEntity("Test"));
-            //     menu.Items.Add(new ExportMember(Services.TextService));
-            //     menu.Items.Add(menuItem);
-            //     // add refresh menu item (note no dialog)            
-            //     menu.Items.Add(new RefreshNode(Services.TextService, true));
-            //     return menu;
-
-            return null;
-        }
     }
 }

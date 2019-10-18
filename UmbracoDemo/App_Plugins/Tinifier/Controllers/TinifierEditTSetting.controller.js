@@ -2,6 +2,7 @@
     function ($scope, $http, $injector, $routeParams, notificationsService, editorService, appState, eventsService) {
         // Get settings
         $scope.timage = {};
+        let settingsIsLoading = true;
 
         // Fill select dropdown
         $scope.options = [
@@ -10,7 +11,6 @@
         ];
 
         function HideLeftPannel() {
-            console.log("hideLeftPanel");
             var contentwrapperContainer = document.getElementById("contentwrapper");
             var navigationContainer = document.getElementById("navigation");
             appState.setGlobalState("showNavigation", false);
@@ -19,8 +19,6 @@
         }
 
         function SetDefaultLeftPannel() {
-
-            console.log("default settings");
             var element = document.getElementById("contentwrapper");
             defaultContentwrapperStyle = window.getComputedStyle(element, null).getPropertyValue("left");
             appState.setGlobalState("showNavigation", true);
@@ -44,45 +42,26 @@
         });
 
         // Fill form from web api
+        notificationsService.success("Loading ...");
+        let loadingSettingsnotification = notificationsService.current[0];
         $http.get(`/umbraco/backoffice/api/TinifierSettings/GetTSetting`).then(
             function (response) {
+                settingsIsLoading = false;
+                notificationsService.remove(loadingSettingsnotification);
                 $scope.timage = response.data;
-                console.log($scope.timage.HideLeftPanel);
                 if ($scope.timage.HideLeftPanel)
                     HideLeftPannel();
                 else
                     SetDefaultLeftPannel();
             },
             function (error) {
-                notificationsService.error(error.message);
+                settingsIsLoading = false;
+                notificationsService.remove(loadingSettingsnotification);
+                notificationsService.error("Server error!");
             });
 
-
         $scope.submit = function () {
-
             SubmitSettings();
-
-            //timage = $scope.timage;
-            //timage.ApiKey = $('#apiKey').val();
-            //timage.EnableOptimizationOnUpload = $('#enableOptimizationOnUpload :selected').text().toLowerCase() === "true";
-            //timage.HideLeftPanel = $('#hideLeftPanel :selected').text().toLowerCase() === "true";
-            //timage.PreserveMetadata = $('#preserveMetadata :selected').text().toLowerCase() === "true";
-            //timage.EnableUndoOptimization = $('#enableUndoOptimization :selected').text().toLowerCase() === "true";
-            //
-            //$http.post(`/umbraco/backoffice/api/TinifierSettings/PostTSetting`, JSON.stringify(timage)).then(postSuccessCallback, postErrorCallback);
-            //
-            //function postSuccessCallback(response) {
-            //    notificationsService.success("Success", response.message);
-            //}
-            //
-            //function postErrorCallback(error) {
-            //    if (error.Error === 1) {
-            //        notificationsService.warning("Warning", error.message);
-            //    }
-            //    else {
-            //        notificationsService.error("Error", error.data.headline + " " + error.data.message);
-            //    }
-            //}
         };
 
         $scope.stopTinifing = function () {
@@ -92,12 +71,6 @@
             };
 
             editorService.open(options);
-
-            //$http.delete(`/umbraco/backoffice/api/TinifierState/DeleteActiveState`).then(function (response) {
-            //    notificationsService.success("Success", "Tinifing successfully stoped!");
-            //}, function (response) {
-            //    notificationsService.error("Error", "Tinifing can`t stop now!");
-            //});
         };
 
         $scope.tinifyEverything = function () {
@@ -109,39 +82,40 @@
             editorService.open(options);
         };
 
-        var processNotification = null;
+        var savinfInProcessNotification = null;
         function SubmitSettings() {
-            notificationsService.success("Saving in progress ...");
 
-            console.log(notificationsService.current);
-            processNotification = notificationsService.current[0];
-
-            console.log(processNotification);
-            // notificationsService.add({
-            //     view: "/App_Plugins/Tinifier/BackOffice/Dashboards/Test.html",
-            //     sticky: true,
-            //     type: 'custom'
-            // });
+            //notificationsService.add({
+            //    view: "/App_Plugins/Tinifier/BackOffice/Dashboards/TestNotification.html",
+            //    sticky: true,
+            //    type: 'custom'
+            //});
+            //return true;
 
             timage = $scope.timage;
             timage.ApiKey = $('#apiKey').val();
-            //timage.EnableOptimizationOnUpload = $('#enableOptimizationOnUpload :selected').text().toLowerCase() === "true";
-            //timage.HideLeftPanel = $('#hideLeftPanel :selected').text().toLowerCase() === "true";
-            //timage.PreserveMetadata = $('#preserveMetadata :selected').text().toLowerCase() === "true";
-            //timage.EnableUndoOptimization = $('#enableUndoOptimization :selected').text().toLowerCase() === "true";
-           
 
+            if (timage.ApiKey === "") {
+                notificationsService.warning("Settings can`t be saved! Please, fill in the ApiKey form. You can get it on a TinyPNG website");
+                $("#apiKey").css("border", "2px solid red");
+                return;
+            }
+            $("#apiKey").css("border", "");
+            notificationsService.success("Saving in progress ...");
+            savinfInProcessNotification = notificationsService.current[0];
+            settingsIsLoading = true;
 
             $http.post(`/umbraco/backoffice/api/TinifierSettings/PostTSetting`, JSON.stringify(timage)).then(postSuccessCallback, postErrorCallback);
-
+            
             function postSuccessCallback(response) {
 
                 for (var i = 0; i < notificationsService.current.length; i++) {
                     notificationsService.remove(notificationsService.current[i]);
                 };
 
-                notificationsService.remove(processNotification);
+                notificationsService.remove(savinfInProcessNotification);
                 notificationsService.success("✔️ Settings successfully saved!");
+                settingsIsLoading = false;
 
                 if ($scope.timage.HideLeftPanel)
                     HideLeftPannel();
@@ -151,6 +125,7 @@
 
             function postErrorCallback(error) {
                 notificationsService.remove();
+                settingsIsLoading = false;
 
                 if (error.Error === 1) {
                     notificationsService.warning("Warning", error.message);
@@ -178,23 +153,31 @@
             });
 
             $scope.hideLeftPanelSetting = function () {
-                $scope.timage.HideLeftPanel = !$scope.timage.HideLeftPanel;
-                SubmitSettings();
+                if (!settingsIsLoading) {
+                    $scope.timage.HideLeftPanel = !$scope.timage.HideLeftPanel;
+                    SubmitSettings();
+                }
             };
 
             $scope.preserveMetadataSetting = function () {
-                $scope.timage.PreserveMetadata = !$scope.timage.PreserveMetadata;
-                SubmitSettings();
+                if (!settingsIsLoading) {
+                    $scope.timage.PreserveMetadata = !$scope.timage.PreserveMetadata;
+                    SubmitSettings();
+                }
             };
 
             $scope.enableUndoOptimizationSetting = function () {
-                $scope.timage.EnableUndoOptimization = !$scope.timage.EnableUndoOptimization;
-                SubmitSettings();
+                if (!settingsIsLoading) {
+                    $scope.timage.EnableUndoOptimization = !$scope.timage.EnableUndoOptimization;
+                    SubmitSettings();
+                }
             };
 
             $scope.enableOptimizationOnUploadSetting = function () {
-                $scope.timage.EnableOptimizationOnUpload = !$scope.timage.EnableOptimizationOnUpload;
-                SubmitSettings();
+                if (!settingsIsLoading) {
+                    $scope.timage.EnableOptimizationOnUpload = !$scope.timage.EnableOptimizationOnUpload;
+                    SubmitSettings();
+                }
             };
 
             function ValidateApiKey() {
@@ -208,6 +191,5 @@
 
                 previousApiKey = actualApiKey;
             }
-
         });
     });

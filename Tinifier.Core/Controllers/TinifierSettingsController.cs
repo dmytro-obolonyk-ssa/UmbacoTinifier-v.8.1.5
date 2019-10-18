@@ -28,7 +28,6 @@ namespace Tinifier.Core.Controllers
         //[Route("umbraco/api/GetTSetting")]
         public HttpResponseMessage GetTSetting()
         {
-            //Thread.Sleep(2000);
             var tsetting = _settingsService.GetSettings() ?? new TSetting();
             return Request.CreateResponse(HttpStatusCode.OK, tsetting);
         }
@@ -43,7 +42,7 @@ namespace Tinifier.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                _settingsService.CreateSettings(setting);
+                //_settingsService.CreateSettings(setting);
                 return Request.CreateResponse(HttpStatusCode.Created, new TNotification("Created", PackageConstants.ApiKeyMessage, EventMessageType.Success));
             }
 

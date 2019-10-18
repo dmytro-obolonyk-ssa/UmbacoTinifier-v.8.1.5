@@ -13,6 +13,20 @@
 
         $scope.message = "hello";
 
+       //var notificationContainer = document.getElementById("umb-notifications-wrapper");
+       ////generate my class
+       //var style = document.createElement('style');
+       //style.type = 'text/css';
+       //style.innerHTML = '.cssClass { position: absolute; left: 500px; z-index: 1100; bottom: 10px; right: 0; display: block; }';
+       //document.getElementsByTagName('head')[0].appendChild(style);
+
+        //notificationContainer.className = 'cssClass';
+        //notificationContainer.className = '';
+       
+        
+       //notificationContainer.style.left = "500px";
+
+
         function toggle() {
             vm.checked = !vm.checked;
 
