@@ -17,6 +17,12 @@
       "view": "/App_Plugins/Tinifier/Backoffice/Dashboards/TinifierStatistic.html",
       "sections": [ "tinifier" ],
       "weight": 10
+    },
+    {
+      "alias": "contact us",
+      "view": "/App_Plugins/Tinifier/Backoffice/Dashboards/Section1/Section1.html",
+      "sections": [ "tinifier" ],
+      "weight": 10
     }
   ],
   "javascript": [
@@ -28,7 +34,8 @@
     "~/App_Plugins/Tinifier/Controllers/TinifierOrganizeImages.controller.js",
     "~/App_Plugins/Tinifier/Controllers/Test.controller.js",
     "~/App_Plugins/Tinifier/Controllers/TinifyAll.controller.js",
-    "~/App_Plugins/Tinifier/Controllers/StopTinifyingConfirmation.controller.js"
+    "~/App_Plugins/Tinifier/Controllers/StopTinifyingConfirmation.controller.js",
+    "~/App_Plugins/Tinifier/Controllers/Section1/Section1.controller.js"
     //"~/App_Plugins/Tinifier/Resources/TinifierApiUrls.resource.js"
   ],
   "css": [

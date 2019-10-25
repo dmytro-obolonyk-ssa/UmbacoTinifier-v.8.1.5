@@ -42,7 +42,7 @@ namespace Tinifier.Core.Controllers
         {
             if (ModelState.IsValid)
             {
-                //_settingsService.CreateSettings(setting);
+                _settingsService.CreateSettings(setting);
                 return Request.CreateResponse(HttpStatusCode.Created, new TNotification("Created", PackageConstants.ApiKeyMessage, EventMessageType.Success));
             }
 

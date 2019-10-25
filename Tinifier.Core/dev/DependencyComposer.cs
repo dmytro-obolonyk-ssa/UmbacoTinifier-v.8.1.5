@@ -25,6 +25,7 @@ using Tinifier.Core.Services.ImageCropperInfo;
 using Tinifier.Core.Repository.Common;
 using Tinifier.Core.Services.BackendDevs;
 using Tinifier.Core.Repository.ImageCropperInfo;
+using Tinifier.Core.Services.EmailSender;
 
 namespace Tinifier.Core.dev
 {
@@ -46,6 +47,7 @@ namespace Tinifier.Core.dev
             composition.Register<IImageService, TImageService>();
             composition.Register<IImageCropperInfoService, ImageCropperInfoService>();
             composition.Register<IBackendDevsConnector, BackendDevsConnectorService>();
+            composition.Register<IReportSender, ReportSender>();
 
             composition.Register<IStateRepository, TStateRepository>();
             composition.Register<IImageRepository, TImageRepository>();
