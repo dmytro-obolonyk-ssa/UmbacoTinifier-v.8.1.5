@@ -4,6 +4,7 @@ using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -41,7 +42,11 @@ namespace Umbraco8.Components
         [HttpPost]
         public async Task<HttpResponseMessage> Report([FromBody] ReportModel model)
         {
+            if(model == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Declined");
+
             var result = await _reportSender.SendReportAsync(model);
+           
             return Request.CreateResponse(HttpStatusCode.OK, result);
         }
 

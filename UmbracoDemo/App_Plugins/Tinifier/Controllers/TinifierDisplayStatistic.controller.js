@@ -36,12 +36,6 @@
         }
 
         function drawChart() {
-            var updateStatisticIsPossible = UpdateStatisticIsPossible();
-            if (updateStatisticIsPossible == false)
-                return;
-
-            //console.log("GetStatistic");
-
             $http.get(`/umbraco/backoffice/api/TinifierImagesStatistic/GetStatistic`).then(function (response) {
                 if (response.data.tsetting != null) {
                     $scope.currentRequests = response.data.tsetting.CurrentMonthRequests;
@@ -109,24 +103,15 @@
             return parseFloat((a / Math.pow(c, f)).toFixed(d)) + " " + e[f];
         }
 
+        //TinifingState
         $scope.getData = function () {
 
-            var updateStatisticIsPossible = UpdateStatisticIsPossible();
-            if (updateStatisticIsPossible == false)
-                return;
-            //console.log("GetCurrentTinifingState");
-
-
             $http.get(`/umbraco/backoffice/api/TinifierState/GetCurrentTinifingState`).then(function (response) {
-                if (response.data == null) {
-                    if (UpdateStatisticIsPossible() == false)
-                        return;
+                if (response.data === null) {
                     document.getElementById("tinifierStatus").innerHTML = "Panda is sleeping now";
                     document.getElementById("statusPanda").src = "/App_Plugins/Tinifier/media/sleeping_panda_by_citruspop-d2v8hdd.jpg";
                     document.getElementById("updateSeconds").style.display = "none";
                 } else {
-                    if (UpdateStatisticIsPossible())
-                        return;
                     document.getElementById("statusPanda").src = "/App_Plugins/Tinifier/media/runPanda.jpg";
                     document.getElementById("tinifierStatus").innerHTML = "";
                     document.getElementById("tinifierStatus").innerHTML = "Processing: " + response.data.CurrentImage + " / " + response.data.AmounthOfImages;
@@ -188,11 +173,11 @@
             });
         };
 
-        function UpdateStatisticIsPossible() {
-            var element = document.getElementById("tinifierStatus");
-            if (element)
-                return true;
-            else
-                return false;
-        }
+        $scope.getData();
+
+        $scope.$on("$destroy", function () {
+            $timeout.cancel(intTimer);
+            $timeout.cancel(drawTimer);
+            $timeout.cancel(timert);
+        });
     });

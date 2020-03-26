@@ -20,7 +20,7 @@
     },
     {
       "alias": "contact us",
-      "view": "/App_Plugins/Tinifier/Backoffice/Dashboards/Section1/Section1.html",
+      "view": "/App_Plugins/Tinifier/Backoffice/Dashboards/ContactUsSection/ContactUsSection.html",
       "sections": [ "tinifier" ],
       "weight": 10
     }
@@ -35,7 +35,7 @@
     "~/App_Plugins/Tinifier/Controllers/Test.controller.js",
     "~/App_Plugins/Tinifier/Controllers/TinifyAll.controller.js",
     "~/App_Plugins/Tinifier/Controllers/StopTinifyingConfirmation.controller.js",
-    "~/App_Plugins/Tinifier/Controllers/Section1/Section1.controller.js"
+    "~/App_Plugins/Tinifier/Controllers/ContactUsSection/ContactUsSection.controller.js"
     //"~/App_Plugins/Tinifier/Resources/TinifierApiUrls.resource.js"
   ],
   "css": [

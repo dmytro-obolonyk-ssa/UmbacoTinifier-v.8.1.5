@@ -84,12 +84,10 @@
         };
 
         function successHandler(response) {
-            console.log(response);
             notificationsService.add(response.data);
         }
 
         function errorHandler(response) {
-            console.log(response);
             notificationsService.add(response.data);
         }
     });

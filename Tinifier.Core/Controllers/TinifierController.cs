@@ -143,6 +143,10 @@ namespace Tinifier.Core.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> TinifyEverything()
         {
+            var settings = _settingsService.GetSettings();
+            if (settings == null || settings.ApiKey == null)
+                throw new EntityNotFoundException(PackageConstants.ApiKeyNotFound);
+
             var nonOptimizedImages = new List<TImage>();
 
             foreach (var image in _imageService.GetAllImages())
@@ -153,7 +157,7 @@ namespace Tinifier.Core.Controllers
                 nonOptimizedImages.Add(image);
             }
 
-            GetAllPublishedContentAndGetImageCroppers(nonOptimizedImages);
+            //GetAllPublishedContentAndGetImageCroppers(nonOptimizedImages);
 
             if (nonOptimizedImages.Count == 0)
                 return GetImageOptimizedReponse(true);
@@ -171,7 +175,7 @@ namespace Tinifier.Core.Controllers
         public async Task<HttpResponseMessage> UndoTinify([FromUri]int mediaId)
         {
             TImage media = _imageService.GetImage(mediaId);
-            
+
             try
             {
                 _imageService.UndoTinify(mediaId);

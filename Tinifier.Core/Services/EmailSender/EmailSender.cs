@@ -2,10 +2,12 @@
 using SendGrid.Helpers.Mail;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Models.Services;
 
 namespace Tinifier.Core.Services.EmailSender
@@ -26,6 +28,23 @@ namespace Tinifier.Core.Services.EmailSender
             var plainTextContent = $"";
             var htmlContent = GenerateEmailBody(model);
             var msg = MailHelper.CreateSingleEmail(from, to, subject, plainTextContent, htmlContent);
+
+            if (model.Files != null)
+            {
+                try
+                {
+                    foreach (var file in model.Files)
+                    {
+                        var res = file.Split(',')[1];
+                        msg.AddAttachment("Img.png", res);
+                    }
+                }
+                catch
+                {
+                    htmlContent += "Attachments missed";
+                }
+            }
+
             var response = await client.SendEmailAsync(msg);
 
             return response.StatusCode.ToString();
@@ -51,5 +70,37 @@ namespace Tinifier.Core.Services.EmailSender
 
             return stringBuilder.ToString();
         }
+
+        private List<AttachmentFile> GetAttachments(List<string> fileNames)
+        {
+            var attachments = new List<AttachmentFile>();
+            foreach (var fileName in fileNames)
+            {
+                byte[] dataArray = null;
+                FileInfo fileInfo = new FileInfo(fileName);
+
+
+                using (var fstream = new FileStream(fileName, FileMode.Open))
+                {
+                    // dataArray = new byte[fstream.Length];
+                    // fstream.Read(dataArray, 0, dataArray.Length);
+                    dataArray = SolutionExtensions.ReadFully(fstream);
+                }
+
+                //dataArray = File.ReadAllBytes(fileName);
+                var attachment = new AttachmentFile() { Base64Content = Convert.ToBase64String(dataArray), FileName = fileInfo.Name };
+
+                attachments.Add(attachment);
+            }
+            return attachments;
+        }
+
+        public class AttachmentFile
+        {
+            public string Base64Content { get; set; }
+            public string FileName { get; set; }
+        }
+
+
     }
 }

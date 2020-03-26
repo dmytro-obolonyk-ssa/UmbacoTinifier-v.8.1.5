@@ -398,9 +398,11 @@
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Section1\Section1.html" />
+    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\ContactUsSection\ContactUsSection.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Settings.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\StopTinifyingConfirmation.html" />
+    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Templates\ConfirmTinifyEverythingDialog.html" />
+    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Templates\ConfirmStopTinifingDialog.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\TestNotification.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Test.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\TinifierStatistic.html" />
@@ -409,7 +411,7 @@
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\TinifierOrganizeImages.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\TinifierTinifyDialog.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\UndoTinifyDialog.html" />
-    <Content Include="App_Plugins\Tinifier\Controllers\Section1\Section1.controller.js" />
+    <Content Include="App_Plugins\Tinifier\Controllers\ContactUsSection\ContactUsSection.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\StopTinifyingConfirmation.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\Test.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierDisplayStatistic.controller.js" />
@@ -420,12 +422,14 @@
     <Content Include="App_Plugins\Tinifier\Controllers\TinyTImage.controller.js" />
     <Content Include="App_Plugins\Tinifier\css\TinifierStyle.css" />
     <Content Include="App_Plugins\Tinifier\Lang\en-us.xml" />
+    <Content Include="App_Plugins\Tinifier\media\backend_label.png" />
     <Content Include="App_Plugins\Tinifier\media\fat.jpg" />
     <Content Include="App_Plugins\Tinifier\media\photo.jpg" />
     <Content Include="App_Plugins\Tinifier\media\runPanda.jpg" />
     <Content Include="App_Plugins\Tinifier\media\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
     <Content Include="App_Plugins\Tinifier\media\spinner.gif" />
     <Content Include="App_Plugins\Tinifier\media\support.jpg" />
+    <Content Include="App_Plugins\Tinifier\media\tinify.png" />
     <Content Include="App_Plugins\Tinifier\package.manifest" />
     <Content Include="App_Plugins\Tinifier\Resources\TinifierApiUrls.resource.js" />
     <Content Include="config\grid.editors.config.js" />

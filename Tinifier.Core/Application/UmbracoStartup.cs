@@ -14,6 +14,7 @@ using System.Xml;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Exceptions;
 using Tinifier.Core.Models.Db;
+using Tinifier.Core.Repository.Common;
 using Tinifier.Core.Repository.FileSystemProvider;
 using Tinifier.Core.Repository.History;
 using Tinifier.Core.Services;
@@ -22,6 +23,7 @@ using Tinifier.Core.Services.ImageCropperInfo;
 using Tinifier.Core.Services.Media;
 using Tinifier.Core.Services.Settings;
 using Tinifier.Core.Services.Statistic;
+using Tinifier.Core.Services.Validation;
 using Umbraco.Core;
 using Umbraco.Core.Composing;
 using Umbraco.Core.Events;
@@ -55,13 +57,15 @@ namespace Tinifier.Core.Application
         private readonly IImageService _imageService;
         private readonly IHistoryService _historyService;
         private readonly IImageCropperInfoService _imageCropperInfoService;
+        private readonly IUmbracoDbRepository _umbracoDbRepository;
+        private readonly IValidationService _validationService;
 
         //for testing
         private readonly IHistoryRepository _historyRepository;
 
         public SectionService(IFileSystemProviderRepository fileSystemProviderRepository, ISettingsService settingsService,
             IStatisticService statisticService, IImageService imageService, IHistoryService historyService, IImageCropperInfoService imageCropperInfoService,
-            IHistoryRepository historyRepository)
+            IHistoryRepository historyRepository, IUmbracoDbRepository umbracoDbRepository, IValidationService validationService)
         {
             _fileSystemProviderRepository = fileSystemProviderRepository;
             _settingsService = settingsService;
@@ -70,6 +74,8 @@ namespace Tinifier.Core.Application
             _historyService = historyService;
             _imageCropperInfoService = imageCropperInfoService;
             _historyRepository = historyRepository;
+            _umbracoDbRepository = umbracoDbRepository;
+            _validationService = validationService;
         }
 
         public void Initialize()
@@ -81,8 +87,10 @@ namespace Tinifier.Core.Application
             //ContentService.Saving += ContentService_Saving;
 
             MediaService.Saved += MediaService_Saved;
+            //MediaService.Saving += MediaService_Saving;
             MediaService.Deleted += MediaService_Deleted;
 
+            #region MyRegion
 
             //PackagingService.UninstalledPackage += PackagingService_UninstalledPackage;
             //PackagingService.ImportedPackage += PackagingService_ImpordedPackage;
@@ -96,6 +104,8 @@ namespace Tinifier.Core.Application
             //MediaService.Saving += MediaService_Saving;
             //MediaService.DeletedVersions += MediaService_DeletedVersions;
             //MediaService.EmptiedRecycleBin += MediaService_EmptiedRecycleBin;
+            #endregion
+
         }
 
         private void CustomTreeNodesRendering(TreeControllerBase sender, TreeNodesRenderingEventArgs e)
@@ -112,7 +122,7 @@ namespace Tinifier.Core.Application
                     //    node.Icon = "~" + System.Web.HttpContext.Current.Server.MapPath("~/App_Plugins/Tinifier/pointer.png");
                     var history = _historyService.GetImageHistory(node.Id as string);
                     if (history != null)
-                        node.Icon = "icon-umb-media color-orange";   
+                        node.Icon = "icon-umb-media color-orange";
                 }
             }
         }
@@ -150,7 +160,7 @@ namespace Tinifier.Core.Application
             foreach (var item in e.DeletedEntities)
                 _historyService.Delete(item.Id.ToString());
 
-            _statisticService.UpdateStatistic(e.DeletedEntities.Count());
+            _statisticService.UpdateStatistic();
         }
 
         public void Terminate()
@@ -166,60 +176,82 @@ namespace Tinifier.Core.Application
 
         private void ContentService_Saving(IContentService sender, SaveEventArgs<IContent> e)
         {
-            //for testing
-            _historyRepository.Create(new TinyPNGResponseHistory() { Error = "TestError", ImageId = "TestImageId", OccuredAt = DateTime.Now, Id = 1111 });
-
             var settingService = _settingsService.GetSettings();
             if (settingService == null)
                 return;
 
-            foreach (var entity in e.SavedEntities)
-            {
-                var imageCroppers = entity.Properties.Where(x => x.PropertyType.PropertyEditorAlias ==
-                                                                 Constants.PropertyEditors.Aliases.ImageCropper);
-
-                foreach (Property crop in imageCroppers)
-                {
-                    var key = string.Concat(entity.Name, "-", crop.Alias);
-                    var imageCropperInfo = _imageCropperInfoService.Get(key);
-                    var imagePath = crop.GetValue();
-
-                    //Wrong object
-                    if (imageCropperInfo == null && imagePath == null)
-                        continue;
-
-                    //Cropped file was Deleted
-                    if (imageCropperInfo != null && imagePath == null)
-                    {
-                        _imageCropperInfoService.DeleteImageFromImageCropper(key, imageCropperInfo);
-                        continue;
-                    }
-
-                    var json = JObject.Parse(imagePath.ToString());
-                    var path = json.GetValue("src").ToString();
-
-                    //republish existed content
-                    if (imageCropperInfo != null && imageCropperInfo.ImageId == path)
-                        continue;
-
-                    //Cropped file was created or updated
-                    _imageCropperInfoService.GetCropImagesAndTinify(key, imageCropperInfo, imagePath,
-                        settingService.EnableOptimizationOnUpload, path);
-                }
-            }
+            // foreach (var entity in e.SavedEntities)
+            // {
+            //     var imageCroppers = entity.Properties.Where(x => x.PropertyType.PropertyEditorAlias ==
+            //                                                      Constants.PropertyEditors.Aliases.ImageCropper);
+            //
+            //     foreach (Property crop in imageCroppers)
+            //     {
+            //         var key = string.Concat(entity.Name, "-", crop.Alias);
+            //         var imageCropperInfo = _imageCropperInfoService.Get(key);
+            //         var imagePath = crop.GetValue();
+            //
+            //         //Wrong object
+            //         if (imageCropperInfo == null && imagePath == null)
+            //             continue;
+            //
+            //         //Cropped file was Deleted
+            //         if (imageCropperInfo != null && imagePath == null)
+            //         {
+            //             _imageCropperInfoService.DeleteImageFromImageCropper(key, imageCropperInfo);
+            //             continue;
+            //         }
+            //
+            //         var json = JObject.Parse(imagePath.ToString());
+            //         var path = json.GetValue("src").ToString();
+            //
+            //         //republish existed content
+            //         if (imageCropperInfo != null && imageCropperInfo.ImageId == path)
+            //             continue;
+            //
+            //         //Cropped file was created or updated
+            //         _imageCropperInfoService.GetCropImagesAndTinify(key, imageCropperInfo, imagePath,
+            //             settingService.EnableOptimizationOnUpload, path);
+            //     }
+            // }
         }
 
         private void MediaService_Saving(IMediaService sender, SaveEventArgs<IMedia> e)
         {
             MediaSavingHelper.IsSavingInProgress = true;
-            // reupload image issue https://goo.gl/ad8pTs
-            HandleMedia(e.SavedEntities,
-                    (m) => _historyService.Delete(m.Id.ToString()),
-                    (m) => m.IsPropertyDirty(PackageConstants.UmbracoFileAlias));
+
+            // MediaSavingHelper.IsSavingInProgress = true;
+            // // reupload image issue https://goo.gl/ad8pTs
+            // HandleMedia(e.SavedEntities,
+            //         (m) => _historyService.Delete(m.Id.ToString()),
+            //         (m) => m.IsPropertyDirty(PackageConstants.UmbracoFileAlias));
+
+            foreach (var mediaEntity in e.SavedEntities)
+            {
+                var node = _umbracoDbRepository.GetNodeById(mediaEntity.Id.ToString());
+
+            }
+
+
         }
 
         private void MediaService_Saved(IMediaService sender, SaveEventArgs<IMedia> e)
         {
+            //IF media already exists, we should not handle content. If we want to tinify media, we should use Tinify menu. 
+
+            var images = _imageService.GetAllImages();
+            var statistic = _statisticService.GetStatistic();
+
+            if (statistic.TotalNumberOfImages == images.Count())
+                return;
+
+            //foreach (var mediaEntity in e.SavedEntities)
+            //{
+            //    var node = _umbracoDbRepository.GetNodeById(mediaEntity.Id.ToString());
+            //    if (node != null)
+            //        return;
+            //}
+
             MediaSavingHelper.IsSavingInProgress = false;
 
             foreach (var media in e.SavedEntities)
@@ -292,25 +324,50 @@ namespace Tinifier.Core.Application
         {
             if (string.Equals(sender.TreeAlias, PackageConstants.MediaAlias, StringComparison.OrdinalIgnoreCase))
             {
-                MenuItem menuItemTinifyButton = new MenuItem(PackageConstants.TinifierButton, PackageConstants.TinifierButtonCaption);
-                menuItemTinifyButton.LaunchDialogView(PackageConstants.TinyTImageRoute, PackageConstants.SectionName);
-                menuItemTinifyButton.SeparatorBefore = true;
-                menuItemTinifyButton.Icon = PackageConstants.MenuIcon;
-                e.Menu.Items.Add(menuItemTinifyButton);
+                var mediaIsFolder = false;
+                //NodeId = -1 it means Recycle folder
+                if (e.NodeId == "-21")
+                    return;
 
-                var menuItemUndoTinifyButton = new MenuItem(PackageConstants.UndoTinifierButton, PackageConstants.UndoTinifierButtonCaption);
-                menuItemUndoTinifyButton.LaunchDialogView(PackageConstants.UndoTinyTImageRoute, PackageConstants.UndoTinifierButtonCaption);
-                menuItemUndoTinifyButton.Icon = PackageConstants.UndoTinifyIcon;
-                e.Menu.Items.Add(menuItemUndoTinifyButton);
+                //NodeId = -1 it means root folder. Only "Organise by date" should be added.
+                if (e.NodeId == "-1")
+                {
+                    var menuItemOrganizeImagesButton = new MenuItem(PackageConstants.OrganizeImagesButton, PackageConstants.OrganizeImagesCaption);
+                    menuItemOrganizeImagesButton.LaunchDialogView(PackageConstants.OrganizeImagesRoute, PackageConstants.OrganizeImagesCaption);
+                    e.Menu.Items.Add(menuItemOrganizeImagesButton);
+                    return;
+                }
 
-                var menuItemSettingsButton = new MenuItem(PackageConstants.StatsButton, PackageConstants.StatsButtonCaption);
-                menuItemSettingsButton.LaunchDialogView(PackageConstants.TinySettingsRoute, PackageConstants.StatsDialogCaption);
-                menuItemSettingsButton.Icon = PackageConstants.MenuSettingsIcon;
-                e.Menu.Items.Add(menuItemSettingsButton);
+                var history = _historyService.GetImageHistory(e.NodeId);
 
-                var menuItemOrganizeImagesButton = new MenuItem(PackageConstants.OrganizeImagesButton, PackageConstants.OrganizeImagesCaption);
-                menuItemOrganizeImagesButton.LaunchDialogView(PackageConstants.OrganizeImagesRoute, PackageConstants.OrganizeImagesCaption);
-                e.Menu.Items.Add(menuItemOrganizeImagesButton);
+                if (history == null)
+                {
+                    MenuItem menuItemTinifyButton = new MenuItem(PackageConstants.TinifierButton, PackageConstants.TinifierButtonCaption);
+                    menuItemTinifyButton.LaunchDialogView(PackageConstants.TinyTImageRoute, PackageConstants.SectionName);
+                    menuItemTinifyButton.SeparatorBefore = true;
+                    menuItemTinifyButton.Icon = PackageConstants.MenuIcon;
+
+                    //If media is folder
+                    mediaIsFolder = _validationService.IsFolder(int.Parse(e.NodeId));
+                    if (mediaIsFolder)
+                        menuItemTinifyButton.Name += " folder";
+                    else
+                        menuItemTinifyButton.Name += " media";
+
+                    e.Menu.Items.Add(menuItemTinifyButton);
+                }
+                else
+                {
+                    var menuItemUndoTinifyButton = new MenuItem(PackageConstants.UndoTinifierButton, PackageConstants.UndoTinifierButtonCaption);
+                    menuItemUndoTinifyButton.LaunchDialogView(PackageConstants.UndoTinyTImageRoute, PackageConstants.UndoTinifierButtonCaption);
+                    menuItemUndoTinifyButton.Icon = PackageConstants.UndoTinifyIcon;
+                    e.Menu.Items.Add(menuItemUndoTinifyButton);
+
+                    var menuItemSettingsButton = new MenuItem(PackageConstants.StatsButton, PackageConstants.StatsButtonCaption);
+                    menuItemSettingsButton.LaunchDialogView(PackageConstants.TinySettingsRoute, PackageConstants.StatsDialogCaption);
+                    menuItemSettingsButton.Icon = PackageConstants.MenuSettingsIcon;
+                    e.Menu.Items.Add(menuItemSettingsButton);
+                }
             }
         }
 
