@@ -50,10 +50,6 @@
                 .then(successHandler, errorHandler);
         };
 
-        $scope.hideDialog = function () {
-            navigationService.hideDialog();
-        };
-
         $scope.undoTinify = function () {
             navigationService.hideDialog();
             // Check if user choose Image or recycle bin folder
@@ -84,10 +80,12 @@
         };
 
         function successHandler(response) {
+            console.log(response);
             notificationsService.add(response.data);
         }
 
         function errorHandler(response) {
+            console.log(response);
             notificationsService.add(response.data);
         }
     });

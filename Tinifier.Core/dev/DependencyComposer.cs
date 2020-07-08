@@ -23,9 +23,6 @@ using Tinifier.Core.Repository.Statistic;
 using Tinifier.Core.Services.Media.Organizers;
 using Tinifier.Core.Services.ImageCropperInfo;
 using Tinifier.Core.Repository.Common;
-using Tinifier.Core.Services.BackendDevs;
-using Tinifier.Core.Repository.ImageCropperInfo;
-using Tinifier.Core.Services.EmailSender;
 
 namespace Tinifier.Core.dev
 {
@@ -46,8 +43,7 @@ namespace Tinifier.Core.dev
             composition.Register<IHistoryService, HistoryService>();
             composition.Register<IImageService, TImageService>();
             composition.Register<IImageCropperInfoService, ImageCropperInfoService>();
-            composition.Register<IBackendDevsConnector, BackendDevsConnectorService>();
-            composition.Register<IReportSender, ReportSender>();
+
 
             composition.Register<IStateRepository, TStateRepository>();
             composition.Register<IImageRepository, TImageRepository>();
@@ -58,7 +54,6 @@ namespace Tinifier.Core.dev
             composition.Register<IStatisticRepository, TStatisticRepository>();
             composition.Register<IMediaHistoryRepository, TMediaHistoryRepository>();
             composition.Register<IUmbracoDbRepository, UmbracoDbRepository>();
-            composition.Register<IImageCropperInfoRepository, TImageCropperInfoRepository>();
 
             composition.Register<IImageOrganizer, ByUploadedDateImageOrganizer>();
         }

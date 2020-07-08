@@ -1,5 +1,5 @@
 ﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\UmbracoCms.8.1.5\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.1.5\build\UmbracoCms.props')" />
+  <Import Project="..\packages\UmbracoCms.8.1.3\build\UmbracoCms.props" Condition="Exists('..\packages\UmbracoCms.8.1.3\build\UmbracoCms.props')" />
   <Import Project="..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props" Condition="Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" />
   <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -9,7 +9,7 @@
     <ProductVersion>
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{3B3BC357-D113-4BAF-B3A1-93BD3B0AE696}</ProjectGuid>
+    <ProjectGuid>{70907FC7-863A-438A-B416-E3EB6690F602}</ProjectGuid>
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
@@ -379,57 +379,50 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Umbraco.Core, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Core.8.1.5\lib\net472\Umbraco.Core.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Core.8.1.3\lib\net472\Umbraco.Core.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Examine, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.5\lib\net472\Umbraco.Examine.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.3\lib\net472\Umbraco.Examine.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.ModelsBuilder, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Umbraco.ModelsBuilder.8.1.0\lib\net472\Umbraco.ModelsBuilder.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.5\lib\net472\Umbraco.Web.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.3\lib\net472\Umbraco.Web.dll</HintPath>
     </Reference>
     <Reference Include="Umbraco.Web.UI, Version=8.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\UmbracoCms.Web.8.1.5\lib\net472\Umbraco.Web.UI.dll</HintPath>
+      <HintPath>..\packages\UmbracoCms.Web.8.1.3\lib\net472\Umbraco.Web.UI.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.controller.js" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.html" />
     <Content Include="App_Plugins\ModelsBuilder\modelsbuilder.resource.js" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\ContactUsSection\ContactUsSection.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Settings.html" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\StopTinifyingConfirmation.html" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Templates\ConfirmTinifyEverythingDialog.html" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Templates\ConfirmStopTinifingDialog.html" />
-    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\TestNotification.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\Test.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\TinifierStatistic.html" />
+    <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\StopTinifyingConfirmation.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\Dashboards\TinifyAll.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\TinifierEdit.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\TinifierOrganizeImages.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\TinifierTinifyDialog.html" />
     <Content Include="App_Plugins\Tinifier\BackOffice\timages\UndoTinifyDialog.html" />
-    <Content Include="App_Plugins\Tinifier\Controllers\ContactUsSection\ContactUsSection.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\StopTinifyingConfirmation.controller.js" />
+    <Content Include="App_Plugins\Tinifier\Controllers\TinifierEditTSetting.controller.js" />
+    <Content Include="App_Plugins\Tinifier\Controllers\TinifyAll.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\Test.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierDisplayStatistic.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierEditTimage.controller.js" />
-    <Content Include="App_Plugins\Tinifier\Controllers\TinifierEditTSetting.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinifierOrganizeImages.controller.js" />
-    <Content Include="App_Plugins\Tinifier\Controllers\TinifyAll.controller.js" />
     <Content Include="App_Plugins\Tinifier\Controllers\TinyTImage.controller.js" />
     <Content Include="App_Plugins\Tinifier\css\TinifierStyle.css" />
     <Content Include="App_Plugins\Tinifier\Lang\en-us.xml" />
-    <Content Include="App_Plugins\Tinifier\media\backend_label.png" />
     <Content Include="App_Plugins\Tinifier\media\fat.jpg" />
     <Content Include="App_Plugins\Tinifier\media\photo.jpg" />
     <Content Include="App_Plugins\Tinifier\media\runPanda.jpg" />
     <Content Include="App_Plugins\Tinifier\media\sleeping_panda_by_citruspop-d2v8hdd.jpg" />
     <Content Include="App_Plugins\Tinifier\media\spinner.gif" />
     <Content Include="App_Plugins\Tinifier\media\support.jpg" />
-    <Content Include="App_Plugins\Tinifier\media\tinify.png" />
     <Content Include="App_Plugins\Tinifier\package.manifest" />
     <Content Include="App_Plugins\Tinifier\Resources\TinifierApiUrls.resource.js" />
     <Content Include="config\grid.editors.config.js" />
@@ -453,6 +446,51 @@
     <Content Include="config\Lang\zh-CN.user.xml" />
     <Content Include="config\logviewer.searches.config.js" />
     <Content Include="Global.asax" />
+    <Content Include="Media\17552d12081d4d01b68132c495d6576f\00000006000000000000000000000000\7373036290_5e8420bf36_b.jpg" />
+    <Content Include="Media\1bc5280b8658402789d958e2576e469b\00000006000000000000000000000000\14272036539_469ca21d5c_h.jpg" />
+    <Content Include="Media\1d0b713a022a49c8b842a2463c83a553\00000006000000000000000000000000\7373036208_30257976a0_b.jpg" />
+    <Content Include="Media\20e3a8ffad1b4fe9b48cb8461c46d2d0\00000006000000000000000000000000\7371127652_e01b6ab56f_b.jpg" />
+    <Content Include="Media\34371d0892c84015912ebaacd002c5d0\00000006000000000000000000000000\18530280048_459b8b61b2_h.jpg" />
+    <Content Include="Media\46a025d6095a4b148b961b59ca4e951c\00000006000000000000000000000000\7377957524_347859faac_b.jpg" />
+    <Content Include="Media\4nnnqsh2\logo3.png" />
+    <Content Include="Media\55514845b8bd487cb3709724852fd6bb\00000006000000000000000000000000\4730684907_8a7f8759cb_b.jpg" />
+    <Content Include="Media\662af6ca411a4c93a6c722c4845698e7\00000006000000000000000000000000\16403439029_f500be349b_o.jpg" />
+    <Content Include="Media\b76ddb4ee603401499066087984740ec\00000006000000000000000000000000\5852022091_87c5d045ab_b.jpg" />
+    <Content Include="Media\c0969cab13ab4de9819a848619ac2b5d\00000006000000000000000000000000\18095416144_44a566a5f4_h.jpg" />
+    <Content Include="Media\c09ec77f08e3466aac58c979befd3cd6\00000006000000000000000000000000\5852022211_9028df67c0_b.jpg" />
+    <Content Include="Media\cf1ab8dcad0f4a8e974b87b84777b0d6\00000006000000000000000000000000\18720470241_ff77768544_h.jpg" />
+    <Content Include="Media\e3nbt5nf\logo4.png" />
+    <Content Include="Media\eee91c05b2e84031a056dcd7f28eff89\00000006000000000000000000000000\18531852339_981b067419_h.jpg" />
+    <Content Include="Media\fa763e0d0ceb408c8720365d57e06e32\00000006000000000000000000000000\18531854019_351c579559_h.jpg" />
+    <Content Include="Media\lmylgs2c\logo5.png" />
+    <Content Include="Media\lo1o5mjy\logo1.png" />
+    <Content Include="Media\mcigbein\logo2.png" />
+    <Content Include="Media\p3vdp1se\logo0.png" />
+    <Content Include="Views\Blog.cshtml" />
+    <Content Include="Views\Blogpost.cshtml" />
+    <Content Include="Views\contact.cshtml" />
+    <Content Include="Views\contentPage.cshtml" />
+    <Content Include="Views\home.cshtml" />
+    <Content Include="Views\MacroPartials\FeaturedProducts.cshtml" />
+    <Content Include="Views\MacroPartials\LatestBlogposts.cshtml" />
+    <Content Include="Views\master.cshtml" />
+    <Content Include="Views\Partials\CategoryLinks.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
+    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
+    <Content Include="Views\Partials\Navigation\SubNavigation.cshtml" />
+    <Content Include="Views\Partials\Navigation\TopNavigation.cshtml" />
+    <Content Include="Views\Partials\SectionHeader.cshtml" />
+    <Content Include="Views\people.cshtml" />
+    <Content Include="Views\Person.cshtml" />
+    <Content Include="Views\Product.cshtml" />
+    <Content Include="Views\Products.cshtml" />
+    <Content Include="Views\Web.config" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -472,20 +510,14 @@
     <Content Include="config\ClientDependency.config" />
     <Content Include="config\BackOfficeTours\getting-started.json" />
     <None Include="packages.config" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\Partials\Grid\Editors\Textstring.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Rte.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Media.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Macro.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Embed.cshtml" />
-    <Content Include="Views\Partials\Grid\Editors\Base.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3.cshtml" />
-    <Content Include="Views\Partials\Grid\Bootstrap3-Fluid.cshtml" />
+    <None Include="Properties\PublishProfiles\TinifierDemo - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\UmbracoDemo2 - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
+      <SubType>Designer</SubType>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -493,22 +525,12 @@
     <Analyzer Include="..\packages\Microsoft.CodeAnalysis.Analyzers.2.6.1\analyzers\dotnet\cs\Microsoft.CodeAnalysis.CSharp.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestExtension\TestExtension.csproj">
-      <Project>{7a6a1a61-669c-445b-be6c-7ef02a03a26b}</Project>
-      <Name>TestExtension</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Tinifier.Core\Tinifier.Core.csproj">
-      <Project>{c42aa4ef-e38b-43c5-9d08-bf768c4b8e0e}</Project>
+      <Project>{bcc48400-6963-4c9f-9b58-3093209e5613}</Project>
       <Name>Tinifier.Core</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Plugins\TestExtension\BackOffice\Dashboards\" />
-    <Folder Include="App_Plugins\TestExtension\Controllers\" />
-    <Folder Include="App_Plugins\TestExtension\css\" />
-    <Folder Include="App_Plugins\TestExtension\Lang\" />
-    <Folder Include="App_Plugins\TestExtension\Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
@@ -522,9 +544,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>57156</DevelopmentServerPort>
+          <DevelopmentServerPort>51703</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:57156/</IISUrl>
+          <IISUrl>http://localhost:51703/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -541,11 +563,11 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
     <Error Condition="!Exists('..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.Net.Compilers.2.10.0\build\Microsoft.Net.Compilers.props'))" />
     <Error Condition="!Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.5\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.5\build\UmbracoCms.props'))" />
-    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.3\build\UmbracoCms.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.3\build\UmbracoCms.props'))" />
+    <Error Condition="!Exists('..\packages\UmbracoCms.8.1.3\build\UmbracoCms.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\UmbracoCms.8.1.3\build\UmbracoCms.targets'))" />
   </Target>
   <Import Project="..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets" Condition="Exists('..\packages\Umbraco.SqlServerCE.4.0.0.1\build\Umbraco.SqlServerCE.targets')" />
-  <Import Project="..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.1.5\build\UmbracoCms.targets')" />
+  <Import Project="..\packages\UmbracoCms.8.1.3\build\UmbracoCms.targets" Condition="Exists('..\packages\UmbracoCms.8.1.3\build\UmbracoCms.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

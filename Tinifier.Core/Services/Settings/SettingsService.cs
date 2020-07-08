@@ -21,8 +21,7 @@ namespace Tinifier.Core.Services.Settings
 
         public TSetting GetSettings()
         {
-            var settings = _settingsRepository.GetSettings();
-            return settings;
+            return _settingsRepository.GetSettings();
         }
 
         public TSetting CheckIfSettingExists()

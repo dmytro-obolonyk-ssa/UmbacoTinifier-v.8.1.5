@@ -183,12 +183,22 @@ namespace Tinifier.Core.Repository.Image
         public int AmounthOfItems()
         {
             var numberOfImages = 0;
+            var fileSystem = _fileSystemProviderRepository.GetFileSystem();
 
-            numberOfImages = Directory.EnumerateFiles(HostingEnvironment.MapPath("/media/"), "*.*", SearchOption.AllDirectories)
-                .Count(file => !file.ToLower().EndsWith("config"));
-
-           // var files = Directory.EnumerateFiles(HostingEnvironment.MapPath("/media/"), "*.*", SearchOption.AllDirectories)
-           //     .Where(file => !file.ToLower().EndsWith("config"));
+            if (fileSystem != null)
+            {
+                // if (fileSystem.Type.Contains("PhysicalFileSystem"))
+                // {
+                numberOfImages = Directory.EnumerateFiles(HostingEnvironment.MapPath("/media/"), "*.*", SearchOption.AllDirectories)
+                    .Count(file => !file.ToLower().EndsWith("config"));
+                //}
+                // else
+                // {
+                //    //_blobStorage.SetDataForBlobStorage();
+                //    //if (_blobStorage.DoesContainerExist())
+                //    //    numberOfImages = _blobStorage.CountBlobsInContainer();
+                // }        
+            }
 
             return numberOfImages;
         }

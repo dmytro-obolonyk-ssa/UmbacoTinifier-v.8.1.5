@@ -186,15 +186,15 @@ namespace Tinifier.Core.Services.Media
                 return;
             }
             UpdateImageAfterSuccessfullRequest(tinyResponse, image, _fileSystem);
-            SendStatistic();
+            // SendStatistic();
         }
 
         private void SendStatistic()
         {
             try
             {
-               // var userDomain = HttpContext.Current.Request.Url.Host;
-               // HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
+                //    var userDomain = HttpContext.Current.Request.Url.Host;
+                //    HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
             }
             catch (Exception)
             {
@@ -207,33 +207,35 @@ namespace Tinifier.Core.Services.Media
             byte[] imageBytes;
             var originImage = _imageHistoryService.Get(mediaId);
 
-            var mediaFile = _mediaService.GetById(mediaId) as uMedia;
-
-
-            if (originImage != null && File.Exists(originImage.OriginFilePath))
+            if (originImage != null)
             {
-                using (var file = new FileStream(originImage.OriginFilePath, FileMode.Open))
-                    imageBytes = SolutionExtensions.ReadFully(file);
+                var mediaFile = _mediaService.GetById(mediaId) as uMedia;
 
-                if (Directory.Exists(Path.GetDirectoryName(originImage.OriginFilePath)))
-                    File.Delete(originImage.OriginFilePath);
-
-                var image = new TImage
+                if (File.Exists(originImage.OriginFilePath))
                 {
-                    Id = mediaId.ToString(),
-                    Name = mediaFile.Name,
-                    AbsoluteUrl = SolutionExtensions.GetAbsoluteUrl(mediaFile)
-                };
+                    using (var file = new FileStream(originImage.OriginFilePath, FileMode.Open))
+                        imageBytes = SolutionExtensions.ReadFully(file);
 
-                // update physical file
-                UpdateMedia(image, imageBytes);
-                // update umbraco media attributes
-                _imageRepository.Update(mediaId, imageBytes.Length);
-                _historyService.Delete(mediaId.ToString());
-                // update statistic
-                _statisticService.UpdateStatistic();
-                //delete image history
-                _imageHistoryService.Delete(mediaId);
+                    if (Directory.Exists(Path.GetDirectoryName(originImage.OriginFilePath)))
+                        File.Delete(originImage.OriginFilePath);
+
+                    var image = new TImage
+                    {
+                        Id = mediaId.ToString(),
+                        Name = mediaFile.Name,
+                        AbsoluteUrl = SolutionExtensions.GetAbsoluteUrl(mediaFile)
+                    };
+
+                    // update physical file
+                    UpdateMedia(image, imageBytes);
+                    // update umbraco media attributes
+                    _imageRepository.Update(mediaId, imageBytes.Length);
+                    _historyService.Delete(mediaId.ToString());
+                    // update statistic
+                    _statisticService.UpdateStatistic();
+                    //delete image history
+                    _imageHistoryService.Delete(mediaId);
+                }
             }
             else
             {

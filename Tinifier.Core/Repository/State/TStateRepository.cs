@@ -22,7 +22,7 @@ namespace Tinifier.Core.Repository.State
         void Update(TState entity);
 
         void Delete();
-        void Truncate();
+
     }
 
     public class TStateRepository : IStateRepository
@@ -42,12 +42,6 @@ namespace Tinifier.Core.Repository.State
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-                //using (var database = scope.Database)
-                //{
-                //    database.Insert(entity);
-                //    scope.Complete();
-                //}
-
                 var database = scope.Database;
                 database.Insert(entity);
                 scope.Complete();
@@ -109,24 +103,42 @@ namespace Tinifier.Core.Repository.State
             }
         }
 
-        public void Truncate()
-        {
-            using (IScope scope = scopeProvider.CreateScope())
-            {
-                var database = scope.Database;
-                var query = new Sql("DELETE TinifierState");
-                database.Execute(query);
-                scope.Complete();
-            }
-        }
-
         public void Delete()
         {
             DeleteTinifierTables();
+            CreateTinifierTables();
         }
 
         #region Private
-     
+        private void CreateTinifierTables()
+        {
+            // var logger = LoggerResolver.Current.Logger;
+            // var dbContext = ApplicationContext.Current.DatabaseContext;
+            // var dbHelper = new DatabaseSchemaHelper(dbContext.Database, logger, dbContext.SqlSyntax);
+            //
+            // var tables = new Dictionary<string, Type>
+            // {
+            //     { PackageConstants.DbSettingsTable, typeof(TSetting) },
+            //     { PackageConstants.DbHistoryTable, typeof(TinyPNGResponseHistory) },
+            //     { PackageConstants.DbStatisticTable, typeof(TImageStatistic) },
+            //     { PackageConstants.DbStateTable, typeof(TState) },
+            //     { PackageConstants.MediaHistoryTable, typeof(TinifierMediaHistory) }
+            // };
+            //
+            // for (var i = 0; i < tables.Count; i++)
+            // {
+            //     if (!dbHelper.TableExist(tables.ElementAt(i).Key))
+            //     {
+            //         dbHelper.CreateTable(false, tables.ElementAt(i).Value);
+            //     }
+            // }
+            //
+            // // migrations
+            // foreach (var migration in Application.Migrations.MigrationsHelper.GetAllMigrations())
+            // {
+            //     migration?.Resolve(dbContext);
+            // }
+        }
 
         private void DeleteTinifierTables()
         {
@@ -146,19 +158,17 @@ namespace Tinifier.Core.Repository.State
                 var database = scope.Database;
                 for (var i = 0; i < tables.Count; i++)
                 {
-                    // var queryTableExists = new Sql($"SELECT Count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tables.ElementAt(i).Key}'");
-                    // var count = database.FirstOrDefault<TState>(queryTableExists);
-                    // if (count.Equals(1))
-                    // {
-                    var queryDropQuery = new Sql($"DELETE FROM {tables.ElementAt(i).Key}");
-                    database.Execute(queryDropQuery);
-                    scope.Complete();
+                   // var queryTableExists = new Sql($"SELECT Count(*) FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_NAME = '{tables.ElementAt(i).Key}'");
+                   // var count = database.FirstOrDefault<TState>(queryTableExists);
+                   // if (count.Equals(1))
+                   // {
+                        var queryDropQuery = new Sql($"DELETE FROM {tables.ElementAt(i).Key}");
+                        database.Execute(queryDropQuery);
+                        scope.Complete();
                     //}
                 }
             }
         }
-
-      
 
         #endregion
     }

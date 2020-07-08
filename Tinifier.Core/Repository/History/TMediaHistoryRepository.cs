@@ -43,7 +43,6 @@ namespace Tinifier.Core.Repository.History
             {
                 var database = scope.Database;
                 database.Insert(entity);
-                scope.Complete();
             }
         }
 
@@ -58,7 +57,6 @@ namespace Tinifier.Core.Repository.History
                 var database = scope.Database;
                 var query = new Sql($"DELETE FROM {_tableName} WHERE MediaId = {id}");
                 database.Execute(query);
-                scope.Complete();
             }
         }
 
@@ -72,7 +70,6 @@ namespace Tinifier.Core.Repository.History
                 var database = scope.Database;
                 var query = new Sql($"DELETE FROM {_tableName}");
                 database.Execute(query);
-                scope.Complete();
             }
         }
 
@@ -126,7 +123,6 @@ namespace Tinifier.Core.Repository.History
                 var database = scope.Database;
                 var query = new Sql($"DELETE FROM {_tableName} WHERE OrganizationRootFolderId = {baseFolderId}");
                 database.Execute(query);
-                scope.Complete();
             }
         }
 

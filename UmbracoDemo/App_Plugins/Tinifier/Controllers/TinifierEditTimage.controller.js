@@ -27,6 +27,7 @@
         // Get Image information
         $http.get(`/umbraco/backoffice/api/Tinifier/GetTImage?timageId=${timageId}`).then(
             function (response) {
+                console.log(response);
                 if (response.data.history != null && response.data.history.IsOptimized) {
                     $scope.date = response.data.history.OccuredAt.replace("T", " ");
                     response.data.history.OccuredAt = $scope.date;

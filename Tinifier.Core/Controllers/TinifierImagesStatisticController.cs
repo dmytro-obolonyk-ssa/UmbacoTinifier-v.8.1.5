@@ -1,9 +1,7 @@
 ﻿using System.Net;
 using System.Net.Http;
-using System.Threading;
 using System.Web.Http;
 using Tinifier.Core.Infrastructure;
-using Tinifier.Core.Models.Db;
 using Tinifier.Core.Services.History;
 using Tinifier.Core.Services.Settings;
 using Tinifier.Core.Services.Statistic;
@@ -34,7 +32,7 @@ namespace Tinifier.Core.Controllers
         public HttpResponseMessage GetStatistic()
         {
             var statistic = _statisticService.GetStatistic();
-            var tsetting = _settingsService.GetSettings() ?? new TSetting();
+            var tsetting = _settingsService.GetSettings();
             var history = _historyService.GetStatisticByDays();
 
             return Request.CreateResponse(HttpStatusCode.OK, new { statistic, tsetting, history, PackageConstants.MonthlyRequestsLimit });

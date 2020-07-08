@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Web.Hosting;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Exceptions;
@@ -17,20 +16,15 @@ namespace Tinifier.Core.Services.ImageCropperInfo
 {
     public class ImageCropperInfoService : IImageCropperInfoService
     {
-        private readonly IImageCropperInfoRepository _imageCropperInfoRepository;
+        private readonly TImageCropperInfoRepository _imageCropperInfoRepository;
         private readonly IHistoryService _historyService;
         private readonly IStatisticService _statisticService;
         private readonly IImageService _imageService;
         private readonly IFileSystemProviderRepository _fileSystemProviderRepository;
 
-        public ImageCropperInfoService(IImageCropperInfoRepository imageCropperInfoRepository, IHistoryService historyService,
-            IStatisticService statisticService, IImageService imageService, IFileSystemProviderRepository fileSystemProviderRepository)
+        public ImageCropperInfoService()
         {
-            _imageCropperInfoRepository = imageCropperInfoRepository;
-            _historyService = historyService;
-            _statisticService = statisticService;
-            _imageService = imageService;
-            _fileSystemProviderRepository = fileSystemProviderRepository;
+
         }
 
         public void Create(string key, string imageId)
@@ -90,16 +84,16 @@ namespace Tinifier.Core.Services.ImageCropperInfo
             var fileSystem = _fileSystemProviderRepository.GetFileSystem();
             if (fileSystem != null)
             {
-                // if (!fileSystem.Type.Contains("PhysicalFileSystem"))
-                // {
-                //     _blobStorage.SetDataForBlobStorage();
-                //     var blobs = _blobStorage.GetAllBlobsInContainer().Where(x => x.Uri.AbsoluteUri.Contains(pathForFolder));
-                //     foreach (var listBlobItem in blobs)
-                //     {
-                //         var blob = (CloudBlockBlob)listBlobItem;
-                //         _blobStorage.DeleteBlob(blob.Name);
-                //     }
-                // }
+               // if (!fileSystem.Type.Contains("PhysicalFileSystem"))
+               // {
+               //     _blobStorage.SetDataForBlobStorage();
+               //     var blobs = _blobStorage.GetAllBlobsInContainer().Where(x => x.Uri.AbsoluteUri.Contains(pathForFolder));
+               //     foreach (var listBlobItem in blobs)
+               //     {
+               //         var blob = (CloudBlockBlob)listBlobItem;
+               //         _blobStorage.DeleteBlob(blob.Name);
+               //     }
+               // }
             }
 
             _statisticService.UpdateStatistic();
@@ -109,7 +103,7 @@ namespace Tinifier.Core.Services.ImageCropperInfo
             bool enableCropsOptimization, string path)
         {
             var pathForFolder = path.Remove(path.LastIndexOf('/') + 1);
-            //DeleteAzureHistory(imageCropperInfo);
+            DeleteAzureHistory(imageCropperInfo);
 
             var histories = _historyService.GetHistoryByPath(pathForFolder);
             foreach (var history in histories)
@@ -167,9 +161,7 @@ namespace Tinifier.Core.Services.ImageCropperInfo
                 if (tinifyEverything)
                     nonOptimizedImages.Add(image);
                 else
-                    Task.Factory.StartNew(() => _imageService.OptimizeImageAsync(image).GetAwaiter().GetResult());
-
-                // _imageService.OptimizeImageAsync(image).GetAwaiter().GetResult();
+                    _imageService.OptimizeImageAsync(image).GetAwaiter().GetResult();
             }
         }
     }

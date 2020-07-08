@@ -16,7 +16,6 @@ namespace Tinifier.Core.Repository.Common
         string GetMediaAbsoluteUrl(int id);
         List<int> GetTrashedNodes();
         List<UmbracoNode> GetNodesByName(string name);
-        UmbracoNode GetNodeById(string Id);
     }
 
 
@@ -68,17 +67,6 @@ namespace Tinifier.Core.Repository.Common
                 IUmbracoDatabase database = scope.Database;
                 var query = new Sql("SELECT Id FROM UmbracoNode WHERE text = @0", name);
                 return database.Fetch<UmbracoNode>(query);
-            }
-
-        }
-
-        public UmbracoNode GetNodeById(string Id)
-        {
-            using (IScope scope = _scopeProvider.CreateScope())
-            {
-                IUmbracoDatabase database = scope.Database;
-                var query = new Sql("SELECT Id FROM UmbracoNode WHERE id = @0", Id);
-                return database.FirstOrDefault<UmbracoNode>(query);
             }
 
         }

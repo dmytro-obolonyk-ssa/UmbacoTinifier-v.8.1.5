@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Infrastructure.Enums;
 using Tinifier.Core.Infrastructure.Exceptions;
 using Tinifier.Core.Models.Db;
 using Tinifier.Core.Repository.Image;
 using Tinifier.Core.Repository.State;
-using Tinifier.Core.Services.Media;
-using Umbraco.Core.Models;
-using Umbraco.Web;
 
 namespace Tinifier.Core.Services.Validation
 {
@@ -46,29 +42,10 @@ namespace Tinifier.Core.Services.Validation
             if (!media.HasProperty("umbracoExtension"))
                 throw new NotSupportedExtensionException();
             var fileExt = media.GetValue<string>("umbracoExtension");
-
-            if (string.IsNullOrEmpty(fileExt))
-                fileExt = GetFileExtensionFromFileSystem(media);
-
             foreach (var supportedExt in PackageConstants.SupportedExtensions)
                 if (string.Equals(supportedExt, fileExt, StringComparison.OrdinalIgnoreCase))
                     return;
             throw new NotSupportedExtensionException(fileExt);
-        }
-
-        private string GetFileExtensionFromFileSystem(Umbraco.Core.Models.Media media)
-        {
-            UmbracoHelper umbHelper = Umbraco.Web.Composing.Current.UmbracoHelper;
-            var content = umbHelper.Media(media.Id);
-            var imagerUrl = content?.Url;
-
-            if (imagerUrl == null)
-                return "";
-
-            var file = new FileInfo(System.Web.HttpContext.Current.Server.MapPath("~/" + imagerUrl));
-            if (file == null)
-                return "";
-            return file.Extension.Replace(".", "");
         }
     }
 }

@@ -19,7 +19,7 @@ using Umbraco.ModelsBuilder;
 using Umbraco.ModelsBuilder.Umbraco;
 
 [assembly: PureLiveAssembly]
-[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "f6f509d22002c868")]
+[assembly:ModelsBuilderAssembly(PureLive = true, SourceHash = "82255764c1e95375")]
 [assembly:System.Reflection.AssemblyVersion("0.0.0.1")]
 
 namespace Umbraco.Web.PublishedModels
@@ -294,7 +294,7 @@ namespace Umbraco.Web.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("photos")]
-		public IPublishedContent Photos => this.Value<IPublishedContent>("photos");
+		public Image Photos => this.Value<Image>("photos");
 
 		///<summary>
 		/// Price
@@ -383,7 +383,7 @@ namespace Umbraco.Web.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("photo")]
-		public IPublishedContent Photo => this.Value<IPublishedContent>("photo");
+		public Image Photo => this.Value<Image>("photo");
 
 		///<summary>
 		/// Twitter username
@@ -611,13 +611,6 @@ namespace Umbraco.Web.PublishedModels
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("sitename")]
 		public string Sitename => this.Value<string>("sitename");
-
-		///<summary>
-		/// CropTest
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		[ImplementPropertyType("tesst")]
-		public Umbraco.Core.PropertyEditors.ValueConverters.ImageCropperValue Tesst => this.Value<Umbraco.Core.PropertyEditors.ValueConverters.ImageCropperValue>("tesst");
 	}
 
 	/// <summary>Feature</summary>
@@ -984,39 +977,39 @@ namespace Umbraco.Web.PublishedModels
 		{ }
 
 		// properties
+
+		///<summary>
+		/// Description: project description
+		///</summary>
+		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
+		[ImplementPropertyType("description")]
+		public string Description => this.Value<string>("description");
 	}
 
-	/// <summary>Project1</summary>
-	[PublishedModel("project1")]
-	public partial class Project1 : PublishedContentModel
+	/// <summary>Projects</summary>
+	[PublishedModel("projects")]
+	public partial class Projects : PublishedContentModel
 	{
 		// helpers
 #pragma warning disable 0109 // new is redundant
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public new const string ModelTypeAlias = "project1";
+		public new const string ModelTypeAlias = "projects";
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new const PublishedItemType ModelItemType = PublishedItemType.Content;
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		public new static IPublishedContentType GetModelContentType()
 			=> PublishedModelUtility.GetModelContentType(ModelItemType, ModelTypeAlias);
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Project1, TValue>> selector)
+		public static IPublishedPropertyType GetModelPropertyType<TValue>(Expression<Func<Projects, TValue>> selector)
 			=> PublishedModelUtility.GetModelPropertyType(GetModelContentType(), selector);
 #pragma warning restore 0109
 
 		// ctor
-		public Project1(IPublishedContent content)
+		public Projects(IPublishedContent content)
 			: base(content)
 		{ }
 
 		// properties
-
-		///<summary>
-		/// Members
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		[ImplementPropertyType("members")]
-		public string Members => this.Value<string>("members");
 	}
 
 	/// <summary>Folder</summary>
@@ -1179,13 +1172,6 @@ namespace Umbraco.Web.PublishedModels
 		// properties
 
 		///<summary>
-		/// CustomProperty1
-		///</summary>
-		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
-		[ImplementPropertyType("customProperty1")]
-		public string CustomProperty1 => this.Value<string>("customProperty1");
-
-		///<summary>
 		/// Is Approved
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
@@ -1204,28 +1190,28 @@ namespace Umbraco.Web.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberFailedPasswordAttempts")]
-		public decimal UmbracoMemberFailedPasswordAttempts => this.Value<decimal>("umbracoMemberFailedPasswordAttempts");
+		public int UmbracoMemberFailedPasswordAttempts => this.Value<int>("umbracoMemberFailedPasswordAttempts");
 
 		///<summary>
 		/// Last Lockout Date
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberLastLockoutDate")]
-		public decimal UmbracoMemberLastLockoutDate => this.Value<decimal>("umbracoMemberLastLockoutDate");
+		public DateTime UmbracoMemberLastLockoutDate => this.Value<DateTime>("umbracoMemberLastLockoutDate");
 
 		///<summary>
 		/// Last Login Date
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberLastLogin")]
-		public decimal UmbracoMemberLastLogin => this.Value<decimal>("umbracoMemberLastLogin");
+		public DateTime UmbracoMemberLastLogin => this.Value<DateTime>("umbracoMemberLastLogin");
 
 		///<summary>
 		/// Last Password Change Date
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberLastPasswordChangeDate")]
-		public decimal UmbracoMemberLastPasswordChangeDate => this.Value<decimal>("umbracoMemberLastPasswordChangeDate");
+		public DateTime UmbracoMemberLastPasswordChangeDate => this.Value<DateTime>("umbracoMemberLastPasswordChangeDate");
 
 		///<summary>
 		/// Is Locked Out
@@ -1239,14 +1225,14 @@ namespace Umbraco.Web.PublishedModels
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberPasswordRetrievalAnswer")]
-		public decimal UmbracoMemberPasswordRetrievalAnswer => this.Value<decimal>("umbracoMemberPasswordRetrievalAnswer");
+		public DateTime UmbracoMemberPasswordRetrievalAnswer => this.Value<DateTime>("umbracoMemberPasswordRetrievalAnswer");
 
 		///<summary>
 		/// Password Question
 		///</summary>
 		[global::System.CodeDom.Compiler.GeneratedCodeAttribute("Umbraco.ModelsBuilder", "8.1.0")]
 		[ImplementPropertyType("umbracoMemberPasswordRetrievalQuestion")]
-		public decimal UmbracoMemberPasswordRetrievalQuestion => this.Value<decimal>("umbracoMemberPasswordRetrievalQuestion");
+		public DateTime UmbracoMemberPasswordRetrievalQuestion => this.Value<DateTime>("umbracoMemberPasswordRetrievalQuestion");
 	}
 
 }

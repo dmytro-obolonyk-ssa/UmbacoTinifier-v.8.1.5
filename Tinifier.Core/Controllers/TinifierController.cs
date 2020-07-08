@@ -53,7 +53,7 @@ namespace Tinifier.Core.Controllers
         public TinifierController(IHistoryService historyService,
             ISettingsService settingsService, IValidationService validationService,
             IStateService stateService, ITinyPNGConnector tinyPngConnectorService, IFileSystem fileSystem, IImageOrganizer imageOrganizer,
-             IImageService imageService, IBackendDevsConnector backendDevsConnectorService, IImageCropperInfoService imageCropperInfoService)
+             IImageService imageService)
         {
             _historyService = historyService;
             _imageService = imageService;
@@ -63,8 +63,6 @@ namespace Tinifier.Core.Controllers
             _tinyPngConnectorService = tinyPngConnectorService;
             _fileSystem = fileSystem;
             _imageOrganizer = imageOrganizer;
-            _backendDevsConnectorService = backendDevsConnectorService;
-            _imageCropperInfoService = imageCropperInfoService;
         }
 
 
@@ -143,10 +141,6 @@ namespace Tinifier.Core.Controllers
         [HttpPut]
         public async Task<HttpResponseMessage> TinifyEverything()
         {
-            var settings = _settingsService.GetSettings();
-            if (settings == null || settings.ApiKey == null)
-                throw new EntityNotFoundException(PackageConstants.ApiKeyNotFound);
-
             var nonOptimizedImages = new List<TImage>();
 
             foreach (var image in _imageService.GetAllImages())
@@ -157,7 +151,7 @@ namespace Tinifier.Core.Controllers
                 nonOptimizedImages.Add(image);
             }
 
-            //GetAllPublishedContentAndGetImageCroppers(nonOptimizedImages);
+            GetAllPublishedContentAndGetImageCroppers(nonOptimizedImages);
 
             if (nonOptimizedImages.Count == 0)
                 return GetImageOptimizedReponse(true);
@@ -174,8 +168,6 @@ namespace Tinifier.Core.Controllers
         [HttpGet]
         public async Task<HttpResponseMessage> UndoTinify([FromUri]int mediaId)
         {
-            TImage media = _imageService.GetImage(mediaId);
-
             try
             {
                 _imageService.UndoTinify(mediaId);
@@ -284,7 +276,7 @@ namespace Tinifier.Core.Controllers
 
                 try
                 {
-                    HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
+                    //     HostingEnvironment.QueueBackgroundWorkItem(stat => _backendDevsConnectorService.SendStatistic(userDomain));
                 }
                 catch (NotSuccessfullRequestException)
                 {
@@ -392,7 +384,7 @@ namespace Tinifier.Core.Controllers
             foreach (var content in GetAllPublishedContent())
             {
                 var imageCroppers = content.Properties
-                    .Where(x => !string.IsNullOrEmpty(x.PropertyType.EditorAlias.ToString()) && x.PropertyType.EditorAlias.ToString().Contains("Cropper")).ToArray();
+                    .Where(x => !string.IsNullOrEmpty(x.Alias.ToString()) && x.Alias.ToString().Contains("crops"));
 
 
                 foreach (var crop in imageCroppers)
@@ -426,6 +418,26 @@ namespace Tinifier.Core.Controllers
                     TinifyImageCroppers(path, nonOptimizedImages, imageCropperInfo, key);
                 }
             }
+        }
+
+        public MenuItemCollection GetMenuForNode(string timageId)
+        {
+            // var menu = new MenuItemCollection();
+            //
+            // var menuItem = new Umbraco.Web.Models.Trees.MenuItem();
+            // menuItem.Alias = "Menu Item 1";
+            // menuItem.Icon = "heard";
+            //
+            //     // root actions, perhaps users can create new items in this tree, or perhaps it's not a content tree, it might be a read only tree, or each node item might represent something entirely different...
+            //     // add your menu item actions or custom ActionMenuItems
+            // menu.Items.Add(new CreateChildEntity("Test"));
+            //     menu.Items.Add(new ExportMember(Services.TextService));
+            //     menu.Items.Add(menuItem);
+            //     // add refresh menu item (note no dialog)            
+            //     menu.Items.Add(new RefreshNode(Services.TextService, true));
+            //     return menu;
+
+            return null;
         }
     }
 }

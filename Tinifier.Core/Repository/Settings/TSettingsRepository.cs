@@ -1,6 +1,4 @@
 ﻿using NPoco;
-using System;
-using System.Threading;
 using Tinifier.Core.Models.Db;
 using Tinifier.Core.Repository.Common;
 using Umbraco.Core;

@@ -28,6 +28,7 @@ namespace Tinifier.Core.Controllers
         //[Route("umbraco/api/GetTSetting")]
         public HttpResponseMessage GetTSetting()
         {
+            //Thread.Sleep(2000);
             var tsetting = _settingsService.GetSettings() ?? new TSetting();
             return Request.CreateResponse(HttpStatusCode.OK, tsetting);
         }

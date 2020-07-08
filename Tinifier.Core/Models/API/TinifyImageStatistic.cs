@@ -16,7 +16,5 @@
         /// Total saved bytes for user
         /// </summary>
         public long TotalSavedBytes { get; set; }
-
-        public int TotalNumberOfImages { get; set; }
     }
 }

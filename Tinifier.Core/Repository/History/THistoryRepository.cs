@@ -1,5 +1,4 @@
 ﻿using NPoco;
-using System;
 using System.Collections.Generic;
 using Tinifier.Core.Infrastructure;
 using Tinifier.Core.Models.Db;
@@ -66,11 +65,9 @@ namespace Tinifier.Core.Repository.History
         {
             using (IScope scope = scopeProvider.CreateScope())
             {
-
                 var database = scope.Database;
                 database.Insert(newItem);
                 scope.Complete();
-
             }
         }
 
@@ -83,9 +80,8 @@ namespace Tinifier.Core.Repository.History
             using (IScope scope = scopeProvider.CreateScope())
             {
                 var database = scope.Database;
-
                 var query = new Sql("DELETE FROM TinifierResponseHistory WHERE ImageId = @0", imageId);
-                database.ExecuteAsync(query);
+                database.Execute(query);
                 scope.Complete();
             }
         }

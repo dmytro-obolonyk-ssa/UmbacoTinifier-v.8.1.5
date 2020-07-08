@@ -40,11 +40,7 @@ namespace Tinifier.Core.Services.State
                     state.CurrentImage++;
 
                 if (state.CurrentImage == state.AmounthOfImages)
-                {
                     state.StatusType = Statuses.Done;
-                    _stateRepository.Truncate();
-                    return;
-                }
 
                 _stateRepository.Update(state);
             }
@@ -53,11 +49,6 @@ namespace Tinifier.Core.Services.State
         public void Delete()
         {
             _stateRepository.Delete();
-        }
-
-        private void TruncateState()
-        {
-            _stateRepository.Truncate();
         }
     }
 }
